@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/")
-public class IndexController {
+class IndexController {
 	private static final String VIEW = "index";
 	@RequestMapping(method = RequestMethod.GET)
 	String index() {

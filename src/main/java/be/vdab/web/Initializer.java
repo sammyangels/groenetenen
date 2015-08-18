@@ -1,10 +1,10 @@
 package be.vdab.web;
 
 
-import javax.servlet.Filter;
-
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
 
 public class Initializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -15,12 +15,12 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return null;
+		return new Class<?>[] { CreateControllerBeans.class };
 	}
 
 	@Override
 	protected String[] getServletMappings() {
-		return null;
+		return new String[] { "/" };
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/werknemers")
-public class WerknemerController {
+class WerknemerController {
 	private static final String WERKNEMERS_VIEW = "werknemers/werknemers";
 	@RequestMapping(method = RequestMethod.GET)
 	String findAll() {
