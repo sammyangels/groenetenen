@@ -1,6 +1,7 @@
 package be.vdab.dao;
 
 import be.vdab.entities.Filiaal;
+import be.vdab.valueobjects.PostcodeReeks;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface FiliaalDAO {
     long findAantalFilialen();
 
     long findAantalWerknemers(long id);
+
+    List<Filiaal> findByPostcodeReeks(PostcodeReeks reeks);
 }

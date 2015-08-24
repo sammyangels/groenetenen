@@ -3,6 +3,7 @@ package be.vdab.services;
 import be.vdab.dao.FiliaalDAO;
 import be.vdab.entities.Filiaal;
 import be.vdab.exceptions.FiliaalHeeftNogWerknemersException;
+import be.vdab.valueobjects.PostcodeReeks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +49,10 @@ class FiliaalServiceImpl implements FiliaalService {
     @Override
     public long findAantalFilialen() {
         return filiaalDAO.findAantalFilialen();
+    }
+
+    @Override
+    public List<Filiaal> findByPostcodeReeks(PostcodeReeks reeks) {
+        return filiaalDAO.findByPostcodeReeks(reeks);
     }
 }

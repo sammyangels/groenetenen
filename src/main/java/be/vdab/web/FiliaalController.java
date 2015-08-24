@@ -3,6 +3,7 @@ package be.vdab.web;
 import be.vdab.entities.Filiaal;
 import be.vdab.exceptions.FiliaalHeeftNogWerknemersException;
 import be.vdab.services.FiliaalService;
+import be.vdab.valueobjects.PostcodeReeks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,9 @@ class FiliaalController {
             "redirect:/filialen/{id}/verwijderd";
     private static final String REDIRECT_URL_HEEFT_NOG_WERKNEMERS =
             "redirect:/filialen/{id}";
+    private static final String VERWIJDERD_VIEW = "filialen/verwijderd";
+    private static final String PER_POSTCODE_VIEW = "filialen/perpostcode";
+
     private static final Logger logger =
             Logger.getLogger(FiliaalController.class.getName());
 
@@ -35,7 +39,19 @@ class FiliaalController {
         this.filiaalService = filiaalService;
     }
 
-    private static final String VERWIJDERD_VIEW = "filialen/verwijderd";
+    @RequestMapping(method = RequestMethod.GET, params = {"vanpostcode", "totpostcode"})
+    ModelAndView findByPostcodeReeks(PostcodeReeks reeks) {
+        return new ModelAndView(PER_POSTCODE_VIEW, "filialen", filiaalService.findByPostcodeReeks(reeks)).addObject(reeks);
+    }
+
+    @RequestMapping(value = "perpostcode", method = RequestMethod.GET)
+    ModelAndView findByPostcodeReeks() {
+        PostcodeReeks reeks = new PostcodeReeks();
+        reeks.setVanpostcode(1000);
+        reeks.setTotpostcode(9999);
+        return new ModelAndView(PER_POSTCODE_VIEW).addObject(reeks);
+    }
+
     @RequestMapping(value = "{id}/verwijderd", method = RequestMethod.GET)
     ModelAndView deleted(String naam) {
         return new ModelAndView(VERWIJDERD_VIEW, "naam", naam);

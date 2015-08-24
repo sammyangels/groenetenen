@@ -2,6 +2,7 @@ package be.vdab.dao;
 
 import be.vdab.entities.Filiaal;
 import be.vdab.valueobjects.Adres;
+import be.vdab.valueobjects.PostcodeReeks;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -55,5 +56,16 @@ class FiliaalDAOImpl implements FiliaalDAO {
     @Override
     public long findAantalWerknemers(long id) {
         return id == 1L ? 7L : 0L;
+    }
+
+    @Override
+    public List<Filiaal> findByPostcodeReeks(PostcodeReeks reeks) {
+        List<Filiaal> filialen = new ArrayList<>();
+        for (Filiaal filiaal : this.filialen.values()) {
+            if (reeks.bevat(filiaal.getAdres().getPostcode())) {
+                filialen.add(filiaal);
+            }
+        }
+        return filialen;
     }
 }
