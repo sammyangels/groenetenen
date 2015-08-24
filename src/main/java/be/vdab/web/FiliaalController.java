@@ -35,6 +35,12 @@ class FiliaalController {
         this.filiaalService = filiaalService;
     }
 
+    private static final String VERWIJDERD_VIEW = "filialen/verwijderd";
+    @RequestMapping(value = "{id}/verwijderd", method = RequestMethod.GET)
+    ModelAndView deleted(String naam) {
+        return new ModelAndView(VERWIJDERD_VIEW, "naam", naam);
+    }
+
     @RequestMapping(value = "{id}/verwijderen", method = RequestMethod.POST)
     String delete(@PathVariable long id, RedirectAttributes redirectAttributes) {
         Filiaal filiaal = filiaalService.read(id);
@@ -69,7 +75,8 @@ class FiliaalController {
 
     @RequestMapping(method = RequestMethod.GET)
     ModelAndView findAll() {
-        return new ModelAndView(FILIALEN_VIEW, "filialen",filiaalService.findAll());
+        return new ModelAndView(FILIALEN_VIEW, "filialen", filiaalService.findAll())
+                .addObject("aantalFilialen", filiaalService.findAantalFilialen());
     }
 
     @RequestMapping(value = "toevoegen", method = RequestMethod.GET)
