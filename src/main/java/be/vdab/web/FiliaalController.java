@@ -17,12 +17,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("/filialen")
 class FiliaalController {
-    private final FiliaalService filiaalService;
     private static final String FILIALEN_VIEW = "filialen/filialen";
     private static final String TOEVOEGEN_VIEW = "filialen/toevoegen";
     private static final String REDIRECT_URL_NA_TOEVOEGEN = "redirect:/filialen";
@@ -35,13 +33,31 @@ class FiliaalController {
             "redirect:/filialen/{id}";
     private static final String VERWIJDERD_VIEW = "filialen/verwijderd";
     private static final String PER_POSTCODE_VIEW = "filialen/perpostcode";
-
-    private static final Logger logger =
-            Logger.getLogger(FiliaalController.class.getName());
+    private static final String WIJZIGEN_VIEW = "filialen/wijzigen";
+    private static final String REDIRECT_URL_NA_WIJZIGEN = "redirect:/filialen";
+    private final FiliaalService filiaalService;
 
     @Autowired
     FiliaalController(FiliaalService filiaalService) {
         this.filiaalService = filiaalService;
+    }
+
+    @RequestMapping(value = "{id}/wijzigen", method = RequestMethod.POST)
+    String update(@Valid Filiaal filiaal, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return WIJZIGEN_VIEW;
+        }
+        filiaalService.update(filiaal);
+        return REDIRECT_URL_NA_WIJZIGEN;
+    }
+
+    @RequestMapping(value = "{id}/wijzigen", method = RequestMethod.GET)
+    ModelAndView updateForm(@PathVariable long id) {
+        Filiaal filiaal = filiaalService.read(id);
+        if (filiaal == null) {
+            return new ModelAndView(REDIRECT_URL_FILIAAL_NIET_GEVONDEN);
+        }
+        return new ModelAndView(WIJZIGEN_VIEW).addObject(filiaal);
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"vanpostcode", "totpostcode"})
@@ -98,8 +114,11 @@ class FiliaalController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    String create() {
-        logger.info("filiaal record toevoegen aan database");
+    public String create(@Valid Filiaal filiaal, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return TOEVOEGEN_VIEW;
+        }
+        filiaalService.create(filiaal);
         return REDIRECT_URL_NA_TOEVOEGEN;
     }
 
@@ -110,12 +129,17 @@ class FiliaalController {
     }
 
     @RequestMapping(value = "toevoegen", method = RequestMethod.GET)
-    String createForm() {
-        return TOEVOEGEN_VIEW;
+    ModelAndView createForm() {
+        return new ModelAndView(TOEVOEGEN_VIEW, "filiaal", new Filiaal());
     }
 
     @InitBinder("postcodeReeks")
     void initBinderPostcodeReeks(WebDataBinder binder) {
+        binder.initDirectFieldAccess();
+    }
+
+    @InitBinder("filiaal")
+    void initBinderFiliaal(WebDataBinder binder) {
         binder.initDirectFieldAccess();
     }
 }
