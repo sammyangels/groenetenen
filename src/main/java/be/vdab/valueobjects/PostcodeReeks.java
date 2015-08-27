@@ -1,9 +1,11 @@
 package be.vdab.valueobjects;
 
 import be.vdab.constraints.Postcode;
+import be.vdab.constraints.PostcodeReeksVanKleinerDanOfGelijkAanTot;
 
 import javax.validation.constraints.NotNull;
 
+@PostcodeReeksVanKleinerDanOfGelijkAanTot
 public class PostcodeReeks {
     @NotNull @Postcode
     private Integer vanpostcode;
@@ -14,16 +16,8 @@ public class PostcodeReeks {
         return vanpostcode;
     }
 
-    public void setVanpostcode(Integer vanpostcode) {
-        this.vanpostcode = vanpostcode;
-    }
-
     public Integer getTotpostcode() {
         return totpostcode;
-    }
-
-    public void setTotpostcode(Integer totpostcode) {
-        this.totpostcode = totpostcode;
     }
 
     public boolean bevat(Integer postcode) {
