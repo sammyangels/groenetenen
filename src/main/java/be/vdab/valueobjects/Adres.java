@@ -3,6 +3,7 @@ package be.vdab.valueobjects;
 import be.vdab.constraints.Postcode;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -11,15 +12,18 @@ public class Adres implements Serializable {
     private static final long serialVersionUID = 1L;
     @NotBlank
     @Length(min = 1, max = 50)
+    @SafeHtml
     private String straat;
     @NotBlank
     @Length(min = 1, max = 7)
+    @SafeHtml
     private String huisNr;
     @NotNull
     @Postcode
     private Integer postcode;
     @NotBlank
     @Length
+    @SafeHtml
     private String gemeente;
 
     public Adres() {}
