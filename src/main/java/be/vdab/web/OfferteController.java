@@ -46,4 +46,10 @@ class OfferteController {
         sessionStatus.setComplete();
         return REDIRECT_URL_NA_TOEVOEGEN;
     }
+
+    @RequestMapping(method = RequestMethod.POST, params = "nogeennummer")
+    String nogEenNummer(@ModelAttribute Offerte offerte) {
+        offerte.nogEenTelefoonNr();
+        return STAP1_VIEW;
+    }
 }

@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.SafeHtml;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zi08 on 2/09/2015.
@@ -27,6 +29,23 @@ public class Offerte implements Serializable {
     @NotNull(groups = Stap2.class)
     @Min(value = 1, groups = Stap2.class)
     private Integer oppervlakte;
+    private List<String> telefoonNrs = new ArrayList<>();
+
+    public List<String> getTelefoonNrs() {
+        return telefoonNrs;
+    }
+
+    public Offerte() {
+        telefoonNrs.add("");
+    }
+
+    public void nogEenTelefoonNr() {
+        telefoonNrs.add("");
+    }
+
+    public void setTelefoonNrs(List<String> telefoonNrs) {
+        this.telefoonNrs = telefoonNrs;
+    }
 
     public String getVoornaam() {
         return voornaam;

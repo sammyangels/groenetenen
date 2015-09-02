@@ -19,6 +19,12 @@
 <form:input path="familienaam" required="required"/>
 <form:label path="emailAdres">E-mail adres:<form:errors path="emailAdres"/> </form:label>
 <form:input path="emailAdres" required="required" type="email"/>
+    <div>Telefoonnummer(s):</div>
+    <c:forEach items="${offerte.telefoonNrs}" varStatus="status">
+        <div class="rij"><form:input path="telefoonNrs[${status.index}]" type="tel"/>
+        <form:errors path="telefoonNrs[${status.index}]" cssClass="fout"/> </div>
+    </c:forEach>
+<input type='submit' value='Nog een telefoonnummer' name='nogeennummer'>
 <input type="submit" value="Volgende stap" name="van1naar2">
 </form:form>
 </body>
