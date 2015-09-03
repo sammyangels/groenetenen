@@ -1,5 +1,6 @@
 package be.vdab.entities;
 
+import be.vdab.enums.Gazontype;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -8,11 +9,10 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
-/**
- * Created by zi08 on 2/09/2015.
- */
 public class Offerte implements Serializable {
     public interface Stap1 {}
     public interface Stap2 {}
@@ -30,6 +30,15 @@ public class Offerte implements Serializable {
     @Min(value = 1, groups = Stap2.class)
     private Integer oppervlakte;
     private List<String> telefoonNrs = new ArrayList<>();
+    private Map<Gazontype, Boolean> gazontypes = new LinkedHashMap<>();
+
+    public Map<Gazontype, Boolean> getGazontypes() {
+        return gazontypes;
+    }
+
+    public void setGazontypes(Map<Gazontype, Boolean> gazontypes) {
+        this.gazontypes = gazontypes;
+    }
 
     public List<String> getTelefoonNrs() {
         return telefoonNrs;
@@ -37,6 +46,9 @@ public class Offerte implements Serializable {
 
     public Offerte() {
         telefoonNrs.add("");
+        for (Gazontype gazontype : Gazontype.values()) {
+            gazontypes.put(gazontype, false);
+        }
     }
 
     public void nogEenTelefoonNr() {
