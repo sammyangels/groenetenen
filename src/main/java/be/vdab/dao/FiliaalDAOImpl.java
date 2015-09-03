@@ -3,24 +3,36 @@ package be.vdab.dao;
 import be.vdab.entities.Filiaal;
 import be.vdab.valueobjects.Adres;
 import be.vdab.valueobjects.PostcodeReeks;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 class FiliaalDAOImpl implements FiliaalDAO {
-    private final Map<Long, Filiaal> filialen = new ConcurrentHashMap<>();
-    FiliaalDAOImpl() {
-        filialen.put(1L, new Filiaal(1, "Andros", true, BigDecimal.valueOf(1000),
-                new Date(), new Adres("Keizerslaan", "11", 1000, "Brussel")));
-        filialen.put(2L, new Filiaal(2, "Delos", false, BigDecimal.valueOf(2000),
-                new Date(), new Adres("Gasthuisstraat", "31", 1000, "Brussel")));
-        filialen.put(3L, new Filiaal(3, "Gavdos", false, BigDecimal.valueOf(3000),
-                new Date(), new Adres("Koestraat", "44", 9700, "Oudenaarde")));
-    }
 
+    private final Map<Long, Filiaal> filialen = new ConcurrentHashMap<>();
+    private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final FiliaalRowMapper rowMapper = new FiliaalRowMapper();
+
+    private static final String BEGIN_SQL =
+            "select id, naam, hoofdFiliaal, straat, huisNr, postcode, gemeente," +
+                    "inGebruikName, waardeGebouw from filialen ";
+    private static final String SQL_FIND_ALL = BEGIN_SQL + "order by naam";
+
+    @Autowired
+    FiliaalDAOImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
     @Override
     public void create(Filiaal filiaal) {
@@ -45,7 +57,7 @@ class FiliaalDAOImpl implements FiliaalDAO {
 
     @Override
     public List<Filiaal> findAll() {
-        return new ArrayList<>(filialen.values());
+        return jdbcTemplate.query(SQL_FIND_ALL, rowMapper);
     }
 
     @Override
@@ -67,5 +79,15 @@ class FiliaalDAOImpl implements FiliaalDAO {
             }
         }
         return filialen;
+    }
+
+    private static class FiliaalRowMapper implements RowMapper<Filiaal> {
+        @Override
+        public Filiaal mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+            return new Filiaal(resultSet.getLong("id"), resultSet.getString("naam"),
+                    resultSet.getBoolean("hoofdfiliaal"), resultSet.getBigDecimal("waardeGebouw"), resultSet.getDate("inGebruikName"),
+                    new Adres(resultSet.getString("straat"),resultSet.getString("huisNr"),
+                    resultSet.getInt("postcode"), resultSet.getString("gemeente")));
+        }
     }
 }
