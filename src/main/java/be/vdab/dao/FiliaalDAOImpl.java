@@ -20,7 +20,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Repository
 class FiliaalDAOImpl implements FiliaalDAO {
 
-    private final Map<Long, Filiaal> filialen = new ConcurrentHashMap<>();
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final FiliaalRowMapper rowMapper = new FiliaalRowMapper();

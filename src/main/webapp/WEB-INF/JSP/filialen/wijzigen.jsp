@@ -4,7 +4,8 @@
 <%@taglib prefix='v' uri='http://vdab.be/tags' %>
 <!doctype html>
 <html lang='nl'>
-<head><v:head title='${filiaal.naam}'/></head>
+<head><jsp:useBean id="filiaal" scope="request" type="be.vdab.entities.Filiaal"/>
+<v:head title='${filiaal.naam}'/></head>
 <body>
 <v:menu/>
 <h1>${filiaal.naam} </h1>
