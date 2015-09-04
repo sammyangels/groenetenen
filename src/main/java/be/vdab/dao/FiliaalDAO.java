@@ -18,7 +18,5 @@ public interface FiliaalDAO {
 
     long findAantalFilialen();
 
-    long findAantalWerknemers(long id);
-
     List<Filiaal> findByPostcodeReeks(PostcodeReeks reeks);
 }

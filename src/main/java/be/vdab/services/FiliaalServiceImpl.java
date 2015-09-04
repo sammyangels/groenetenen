@@ -40,10 +40,13 @@ class FiliaalServiceImpl implements FiliaalService {
     @Override
     @ModifyingTransactionalServiceMethod
     public void delete(long id) {
-        if (filiaalDAO.findAantalWerknemers(id) != 0) {
-            throw new FiliaalHeeftNogWerknemersException();
+        Filiaal filiaal = filiaalDAO.read(id);
+        if (filiaal != null) {
+            if (!filiaal.getWerknemers().isEmpty()) {
+                throw new FiliaalHeeftNogWerknemersException();
+            }
+            filiaalDAO.delete(id);
         }
-        filiaalDAO.delete(id);
     }
 
     @Override
