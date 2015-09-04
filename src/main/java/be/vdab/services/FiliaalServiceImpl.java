@@ -23,24 +23,24 @@ class FiliaalServiceImpl implements FiliaalService {
     @Override
     @ModifyingTransactionalServiceMethod
     public void create(Filiaal filiaal) {
-        filiaalDAO.create(filiaal);
+        filiaal.setId(filiaalDAO.save(filiaal).getId());
     }
 
     @Override
     public Filiaal read(long id) {
-        return filiaalDAO.read(id);
+        return filiaalDAO.findOne(id);
     }
 
     @Override
     @ModifyingTransactionalServiceMethod
     public void update(Filiaal filiaal) {
-        filiaalDAO.update(filiaal);
+        filiaalDAO.save(filiaal);
     }
 
     @Override
     @ModifyingTransactionalServiceMethod
     public void delete(long id) {
-        Filiaal filiaal = filiaalDAO.read(id);
+        Filiaal filiaal = filiaalDAO.findOne(id);
         if (filiaal != null) {
             if (!filiaal.getWerknemers().isEmpty()) {
                 throw new FiliaalHeeftNogWerknemersException();
@@ -56,11 +56,11 @@ class FiliaalServiceImpl implements FiliaalService {
 
     @Override
     public long findAantalFilialen() {
-        return filiaalDAO.findAantalFilialen();
+        return filiaalDAO.count();
     }
 
     @Override
     public List<Filiaal> findByPostcodeReeks(PostcodeReeks reeks) {
-        return filiaalDAO.findByPostcodeReeks(reeks);
+        return filiaalDAO.findByAdresPostcodeBetweenOrderByNaamAsc(reeks.getVanpostcode(), reeks.getTotpostcode());
     }
 }
