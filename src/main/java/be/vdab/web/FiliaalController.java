@@ -51,9 +51,8 @@ class FiliaalController {
         return REDIRECT_URL_NA_WIJZIGEN;
     }
 
-    @RequestMapping(value = "{id}/wijzigen", method = RequestMethod.GET)
-    ModelAndView updateForm(@PathVariable long id) {
-        Filiaal filiaal = filiaalService.read(id);
+    @RequestMapping(value = "{filiaal}/wijzigen", method = RequestMethod.GET)
+    ModelAndView updateForm(@PathVariable Filiaal filiaal) {
         if (filiaal == null) {
             return new ModelAndView(REDIRECT_URL_FILIAAL_NIET_GEVONDEN);
         }
@@ -87,12 +86,12 @@ class FiliaalController {
         return new ModelAndView(VERWIJDERD_VIEW, "naam", naam);
     }
 
-    @RequestMapping(value = "{id}/verwijderen", method = RequestMethod.POST)
-    String delete(@PathVariable long id, RedirectAttributes redirectAttributes) {
-        Filiaal filiaal = filiaalService.read(id);
+    @RequestMapping(value = "{filiaal}/verwijderen", method = RequestMethod.POST)
+    String delete(@PathVariable Filiaal filiaal, RedirectAttributes redirectAttributes) {
         if (filiaal == null) {
             return REDIRECT_URL_FILIAAL_NIET_GEVONDEN;
         }
+        long id = filiaal.getId();
         try {
             filiaalService.delete(id);
             redirectAttributes.addAttribute("id", id).addAttribute("naam", filiaal.getNaam());
@@ -103,10 +102,9 @@ class FiliaalController {
         }
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    ModelAndView read(@PathVariable long id) {
+    @RequestMapping(value = "{filiaal}", method = RequestMethod.GET)
+    ModelAndView read(@PathVariable Filiaal filiaal) {
         ModelAndView modelAndView = new ModelAndView(FILIAAL_VIEW);
-        Filiaal filiaal = filiaalService.read(id);
         if (filiaal != null) {
             modelAndView.addObject(filiaal);
         }
