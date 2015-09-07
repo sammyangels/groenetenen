@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "werknemers")
+@NamedEntityGraph(name = "Werknemer.metFiliaal", attributeNodes = @NamedAttributeNode("filiaal"))
 public class Werknemer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
