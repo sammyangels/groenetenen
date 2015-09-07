@@ -2,6 +2,7 @@ package be.vdab.web;
 
 import be.vdab.services.WerknemerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +20,7 @@ class WerknemerController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    ModelAndView findAll() {
-		return  new ModelAndView(WERKNEMERS_VIEW, "werknemers", werknemerService.findAll());
+    ModelAndView findAll(Pageable pageable) {
+		return  new ModelAndView(WERKNEMERS_VIEW, "page", werknemerService.findAll(pageable));
 	}
 }

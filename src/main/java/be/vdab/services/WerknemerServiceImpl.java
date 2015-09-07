@@ -3,6 +3,8 @@ package be.vdab.services;
 import be.vdab.dao.WerknemerDAO;
 import be.vdab.entities.Werknemer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
@@ -17,7 +19,7 @@ class WerknemerServiceImpl implements WerknemerService {
     }
 
     @Override
-    public List<Werknemer> findAll() {
-        return werknemerDAO.findAll(new Sort("familienaam", "voornaam"));
+    public Page<Werknemer> findAll(Pageable pageable) {
+        return werknemerDAO.findAll(pageable);
     }
 }
