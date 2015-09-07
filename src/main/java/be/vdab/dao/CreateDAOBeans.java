@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -17,12 +18,13 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan
+@EnableJpaRepositories
 public class CreateDAOBeans {
     @Autowired
     private DataSource dataSource;
 
     @Bean
-    LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+    LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setDataSource(dataSource);
         factory.setPackagesToScan(Filiaal.class.getPackage().getName(), Adres.class.getPackage().getName());
@@ -36,7 +38,7 @@ public class CreateDAOBeans {
 
     @Bean
     JpaTransactionManager transactionManager() {
-        return new JpaTransactionManager(entityManagerFactoryBean().getObject());
+        return new JpaTransactionManager(entityManagerFactory().getObject());
     }
 
     @Bean

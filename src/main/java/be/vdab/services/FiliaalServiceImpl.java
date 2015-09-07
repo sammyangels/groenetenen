@@ -5,6 +5,7 @@ import be.vdab.entities.Filiaal;
 import be.vdab.exceptions.FiliaalHeeftNogWerknemersException;
 import be.vdab.valueobjects.PostcodeReeks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,24 +24,24 @@ class FiliaalServiceImpl implements FiliaalService {
     @Override
     @ModifyingTransactionalServiceMethod
     public void create(Filiaal filiaal) {
-        filiaalDAO.create(filiaal);
+        filiaal.setId(filiaalDAO.save(filiaal).getId());
     }
 
     @Override
     public Filiaal read(long id) {
-        return filiaalDAO.read(id);
+        return filiaalDAO.findOne(id);
     }
 
     @Override
     @ModifyingTransactionalServiceMethod
     public void update(Filiaal filiaal) {
-        filiaalDAO.update(filiaal);
+        filiaalDAO.save(filiaal);
     }
 
     @Override
     @ModifyingTransactionalServiceMethod
     public void delete(long id) {
-        Filiaal filiaal = filiaalDAO.read(id);
+        Filiaal filiaal = filiaalDAO.findOne(id);
         if (filiaal != null) {
             if (!filiaal.getWerknemers().isEmpty()) {
                 throw new FiliaalHeeftNogWerknemersException();
@@ -51,16 +52,16 @@ class FiliaalServiceImpl implements FiliaalService {
 
     @Override
     public List<Filiaal> findAll() {
-        return filiaalDAO.findAll();
+        return filiaalDAO.findAll(new Sort("naam"));
     }
 
     @Override
     public long findAantalFilialen() {
-        return filiaalDAO.findAantalFilialen();
+        return filiaalDAO.count();
     }
 
     @Override
     public List<Filiaal> findByPostcodeReeks(PostcodeReeks reeks) {
-        return filiaalDAO.findByPostcodeReeks(reeks);
+        return filiaalDAO.findByAdresPostcodeBetweenOrderByNaamAsc(reeks.getVanpostcode(), reeks.getTotpostcode());
     }
 }
