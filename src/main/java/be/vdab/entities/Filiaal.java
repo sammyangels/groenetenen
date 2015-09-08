@@ -66,6 +66,10 @@ public class Filiaal implements Serializable {
         this.id = id;
     }
 
+    public void afschrijvern() {
+        this.waardeGebouw = BigDecimal.ZERO;
+    }
+
     public long getId() {
         return id;
     }

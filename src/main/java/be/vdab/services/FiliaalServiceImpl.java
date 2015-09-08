@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @ReadOnlyTransactionalService
@@ -63,5 +64,18 @@ class FiliaalServiceImpl implements FiliaalService {
     @Override
     public List<Filiaal> findByPostcodeReeks(PostcodeReeks reeks) {
         return filiaalDAO.findByAdresPostcodeBetweenOrderByNaamAsc(reeks.getVanpostcode(), reeks.getTotpostcode());
+    }
+
+    @Override
+    public List<Filiaal> findNietAfgeschreven() {
+        return filiaalDAO.findByWaardeGebouwNot(BigDecimal.ZERO);
+    }
+
+    @Override
+    @ModifyingTransactionalServiceMethod
+    public void afschrijven(Iterable<Filiaal> filialen) {
+        for (Filiaal filiaal : filialen) {
+            filiaal.afschrijvern();
+        }
     }
 }

@@ -36,6 +36,22 @@ class FiliaalController {
     private static final String WIJZIGEN_VIEW = "filialen/wijzigen";
     private static final String REDIRECT_URL_NA_WIJZIGEN = "redirect:/filialen";
     private final FiliaalService filiaalService;
+    private static final String AFSCHRIJVEN_VIEW = "filialen/afschrijven";
+    private static final String REDIRECT_NA_AFSCHRIJVEN = "redirect:/";
+
+    @RequestMapping(value = "afschrijven", method = RequestMethod.POST)
+    ModelAndView afschrijven(@Valid AfschrijvenForm afschrijvenForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView(AFSCHRIJVEN_VIEW, "filialen", filiaalService.findNietAfgeschreven());
+        }
+        filiaalService.afschrijven(afschrijvenForm.getFilialen());
+        return new ModelAndView(REDIRECT_NA_AFSCHRIJVEN);
+    }
+
+    @RequestMapping(value = "afschrijven", method = RequestMethod.GET)
+    ModelAndView afschrijvenForm() {
+        return new ModelAndView(AFSCHRIJVEN_VIEW, "filialen", filiaalService.findNietAfgeschreven()).addObject(new AfschrijvenForm());
+    }
 
     @Autowired
     FiliaalController(FiliaalService filiaalService) {
