@@ -72,7 +72,10 @@
     <orderEntry type="library" name="Maven: org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.0.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.javassist:javassist:3.18.1-GA" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:4.1.6.RELEASE" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: mysql:mysql-connector-java:5.1.36" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wisdom-framework:hsqldb:2.3.2_2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.hsqldb:hsqldb:2.3.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.felix:org.apache.felix.ipojo.annotations:1.12.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.wisdom-framework:abstract-jdbc-driver:0.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-jpa:1.8.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:1.10.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:4.1.6.RELEASE" level="project" />
@@ -80,5 +83,6 @@
     <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.8.6" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.12" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:jcl-over-slf4j:1.7.12" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.7.12" level="project" />
   </component>
 </module>

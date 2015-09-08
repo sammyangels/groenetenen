@@ -16,7 +16,7 @@ import java.util.Date;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {CreateTestDataSourceBean.class, CreateDAOBeans.class})
+@ContextConfiguration(classes = {CreateTestDataSourceBean.class, CreateTestDAOBeans.class})
 @Transactional
 public class FiliaalDAOImplTest {
     @Autowired

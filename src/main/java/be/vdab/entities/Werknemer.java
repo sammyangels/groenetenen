@@ -19,6 +19,7 @@ public class Werknemer implements Serializable {
     @JoinColumn(name = "filiaalId")
     private Filiaal filiaal;
     private BigDecimal wedde;
+    @Column(unique = true)
     private long rijksregisterNr;
 
     @Override

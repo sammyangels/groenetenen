@@ -11,6 +11,6 @@ import javax.sql.DataSource;
 public class CreateTestDataSourceBean {
     @Bean
     DataSource dataSource() {
-        return new DriverManagerDataSource("jdbc:mysql://localhost/groenetenen", "cursist", "cursist");
+        return new DriverManagerDataSource("jdbc:hsqldb:mem:groenetenen", "sa", "");
     }
 }
