@@ -1,6 +1,8 @@
 package be.vdab.entities;
 
 import be.vdab.valueobjects.Adres;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -12,37 +14,31 @@ import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 
-@Entity
-@Table(name = "filialen")
+@Entity @Table(name = "filialen") @XmlRootElement
 public class Filiaal implements Serializable {
     private static final long serialVersionUID=1L;
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     private long id;
-    @NotBlank
-    @Length(min = 1, max = 50)
-    @SafeHtml
+    @NotBlank @Length(min = 1, max = 50) @SafeHtml
     private String naam;
     private boolean hoofdFiliaal;
-    @NumberFormat(style = NumberFormat.Style.NUMBER)
-    @NotNull
-    @Min(0)
-    @Digits(integer = 10, fraction = 2)
+    @NumberFormat(style = NumberFormat.Style.NUMBER) @NotNull @Min(0) @Digits(integer = 10, fraction = 2)
     private BigDecimal waardeGebouw;
-    @DateTimeFormat(style = "S-")
-    @NotNull
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(style = "S-") @NotNull @Temporal(TemporalType.DATE)
     private Date inGebruikName;
-    @Valid
-    @Embedded
+    @Valid @Embedded
     private Adres adres;
-    @OneToMany(mappedBy = "filiaal")
+    @OneToMany(mappedBy = "filiaal") @XmlTransient @JsonIgnore
     private Set<Werknemer> werknemers;
     public Set<Werknemer> getWerknemers() {
         return Collections.unmodifiableSet(werknemers);
