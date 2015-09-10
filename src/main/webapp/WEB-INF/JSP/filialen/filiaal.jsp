@@ -5,6 +5,7 @@
 <!doctype html>
 <html lang='nl'>
 <head>
+    <jsp:useBean id="filiaal" scope="request" type="be.vdab.entities.Filiaal"/>
     <v:head title='${filiaal.naam}'/>
 </head>
 <body>
@@ -19,6 +20,10 @@
             <dt>Type</dt><dd>${filiaal.hoofdFiliaal ? "Hoofdfiliaal" : "Bijfiliaal"}</dd>
             <dt>Waarde gebouw</dt>
             <dd>&euro; <spring:eval expression='filiaal.waardeGebouw'/></dd>
+            <spring:url value='/euro/{euro}/naardollar' var="naarDollarURL">
+                <spring:param name='euro' value='${filiaal.waardeGebouw}'/>
+            </spring:url>
+            <a href='${naarDollarURL}'>in $</a>
             <dt>Ingebruikname</dt>
             <dd><spring:eval expression='filiaal.inGebruikName'/></dd></dl>
         <spring:url value='/filialen/{id}/verwijderen' var='verwijderURL'>
