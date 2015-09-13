@@ -39,6 +39,12 @@ class FiliaalController {
     private final FiliaalService filiaalService;
     private static final String AFSCHRIJVEN_VIEW = "filialen/afschrijven";
     private static final String REDIRECT_NA_AFSCHRIJVEN = "redirect:/";
+    private static final String PER_ID_VIEW = "filialen/perid";
+
+    @RequestMapping(value = "perid", method = RequestMethod.GET)
+    String findById() {
+        return PER_ID_VIEW;
+    }
 
     @RequestMapping(value = "afschrijven", method = RequestMethod.POST)
     ModelAndView afschrijven(@Valid AfschrijvenForm afschrijvenForm, BindingResult bindingResult) {
