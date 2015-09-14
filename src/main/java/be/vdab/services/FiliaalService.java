@@ -6,7 +6,7 @@ import be.vdab.valueobjects.PostcodeReeks;
 import java.util.List;
 
 public interface FiliaalService {
-    void create(Filiaal filiaal);
+    void create(Filiaal filiaal, String urlAlleFilialen);
 
     Filiaal read(long id);
 
@@ -23,4 +23,6 @@ public interface FiliaalService {
     List<Filiaal> findNietAfgeschreven();
 
     void afschrijven(Iterable<Filiaal> filialen);
+
+    void aantalFilialenMail();
 }

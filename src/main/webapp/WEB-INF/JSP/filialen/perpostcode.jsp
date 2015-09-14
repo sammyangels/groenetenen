@@ -14,7 +14,6 @@
 <c:url value='/filialen' var='url'/>
 <form:form action="${url}" commandName='postcodeReeks' method='get'>
     <form:label path='vanpostcode'>Van:<form:errors path='vanpostcode'/></form:label>
-
     <form:input path='vanpostcode' autofocus='autofocus' type="number" required="required" min="1000" max="9999"/>
     <form:label path='totpostcode'>Tot:<form:errors path='totpostcode'/></form:label>
     <form:input path='totpostcode' required='required' type='number' min='1000'

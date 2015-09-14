@@ -16,6 +16,7 @@ import static
 import be.vdab.dao.CreateTestDAOBeans;
 import be.vdab.datasource.CreateTestDataSourceBean;
 import be.vdab.entities.Filiaal;
+import be.vdab.mail.CreateMailBeans;
 import be.vdab.restclients.CreateRestClientBeans;
 import be.vdab.services.CreateServiceBeans;
 import be.vdab.services.FiliaalService;
@@ -35,15 +36,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.awt.*;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {CreateTestDataSourceBean.class, CreateTestDAOBeans.class, CreateServiceBeans.class, CreateControllerBeans.class, CreateRestControllerBeans.class, CreateRestClientBeans.class})
+@ContextConfiguration(classes = {CreateTestDataSourceBean.class, CreateTestDAOBeans.class, CreateServiceBeans.class, CreateControllerBeans.class,
+        CreateRestControllerBeans.class, CreateRestClientBeans.class, CreateMailBeans.class})
 @WebAppConfiguration
 @Transactional
 public class FiliaalRestControllerTest {
@@ -57,7 +56,7 @@ public class FiliaalRestControllerTest {
     @Before
     public void before() throws Exception {
         filiaal = new Filiaal("naam", true, BigDecimal.TEN, new Date(), new Adres("straat", "huisNr", 1000, "gemeente"));
-        filiaalService.create(filiaal);
+        filiaalService.create(filiaal, "");
         mvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 

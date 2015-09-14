@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -135,11 +136,11 @@ class FiliaalController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String create(@Valid Filiaal filiaal, BindingResult bindingResult) {
+    public String create(@Valid Filiaal filiaal, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             return TOEVOEGEN_VIEW;
         }
-        filiaalService.create(filiaal);
+        filiaalService.create(filiaal, request.getRequestURL().toString());
         return REDIRECT_URL_NA_TOEVOEGEN;
     }
 
