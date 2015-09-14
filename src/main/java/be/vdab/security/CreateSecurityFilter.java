@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -25,12 +26,23 @@ public class CreateSecurityFilter extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/images/**")
+                .antMatchers("/styles/**")
+                .antMatchers("/scripts/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
+        http.formLogin().loginPage("/login").and().logout().logoutSuccessUrl("/")
                 .and().authorizeRequests()
                 .antMatchers("/filialen/toevoegen", "/filialen/*/wijzigen", "/filialen/*/verwijderen").hasAuthority(MANAGER)
                 .antMatchers(HttpMethod.POST, "/filialen").hasAuthority(MANAGER)
-                .antMatchers("/werknemers").hasAnyAuthority(MAGAZIJNIER, HELPDESKMEDEWERKER);
+                .antMatchers("/werknemers").hasAnyAuthority(MAGAZIJNIER, HELPDESKMEDEWERKER)
+                .antMatchers("/", "/login").permitAll()
+                .antMatchers("/**").authenticated()
+                .and().exceptionHandling().accessDeniedPage("/WEB-INF/JSP/forbidden.jsp");
     }
 
 }

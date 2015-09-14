@@ -82,7 +82,6 @@ class FiliaalServiceImpl implements FiliaalService {
     }
 
     @Override
-    @Scheduled(fixedRate = 60000)
     public void aantalFilialenMail() {
         mailSender.aantalFilialenMail(filiaalDAO.count());
     }

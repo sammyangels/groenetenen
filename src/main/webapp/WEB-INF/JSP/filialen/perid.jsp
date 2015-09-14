@@ -21,7 +21,6 @@
 </dl>
 <c:url value='/filialen' var='url'/>
 <script>
-    alert("WubbaLubbaDingDong");
     document.getElementById('zoekForm').onsubmit = zoekFiliaal;
     function zoekFiliaal() {
         var request = new XMLHttpRequest();
@@ -34,7 +33,6 @@
         return false;
     }
     function responseIsBinnengekomen() {
-        alert(this.status);
         switch (this.status) {
             case 200:
                 var filiaalResource = JSON.parse(this.responseText);
