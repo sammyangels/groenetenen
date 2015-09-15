@@ -17,15 +17,16 @@
     </facet>
     <facet type="Spring" name="Spring">
       <configuration>
-        <fileset id="fileset" name="Spring" removed="false">
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/java/be/vdab/aop/CreateAOPBeans.java</file>
           <file>file://$MODULE_DIR$/src/main/java/be/vdab/web/CreateControllerBeans.java</file>
           <file>file://$MODULE_DIR$/src/main/java/be/vdab/dao/CreateDAOBeans.java</file>
           <file>file://$MODULE_DIR$/src/main/java/be/vdab/datasource/CreateDataSourceBean.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/be/vdab/mail/CreateMailBeans.java</file>
           <file>file://$MODULE_DIR$/src/main/java/be/vdab/restclients/CreateRestClientBeans.java</file>
           <file>file://$MODULE_DIR$/src/main/java/be/vdab/restservices/CreateRestControllerBeans.java</file>
           <file>file://$MODULE_DIR$/src/main/java/be/vdab/security/CreateSecurityFilter.java</file>
           <file>file://$MODULE_DIR$/src/main/java/be/vdab/services/CreateServiceBeans.java</file>
-          <file>file://$MODULE_DIR$/src/main/java/be/vdab/mail/CreateMailBeans.java</file>
         </fileset>
       </configuration>
     </facet>
@@ -86,9 +87,9 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.12" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:jcl-over-slf4j:1.7.12" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.7.12" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.6.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.6.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.6.0" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.6.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.6.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.hateoas:spring-hateoas:0.19.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: javax.el:javax.el-api:3.0.1-b04" level="project" />
@@ -106,5 +107,6 @@
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-taglibs:4.0.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-acl:4.0.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:4.0.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.8.7" level="project" />
   </component>
 </module>
