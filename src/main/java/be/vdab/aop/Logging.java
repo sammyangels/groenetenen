@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 class Logging {
     private final static Logger LOGGER = Logger.getLogger(Logging.class.getName());
 
-    @AfterThrowing(pointcut = be.vdab.aop.PointcutExpressions.servicesEnTransacties(), throwing = "ex")
+    @AfterThrowing(pointcut = "be.vdab.aop.PointcutExpressions.servicesEnTransacties()", throwing = "ex")
     void schrijfException(JoinPoint joinPoint, Throwable ex) {
         StringBuilder builder = new StringBuilder("\nTijdstip\t").append(new Date());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -16,7 +16,7 @@ public class Statistieken {
     private final static Logger LOGGER = Logger.getLogger(Statistieken.class.getName());
     private final ConcurrentHashMap<String, AtomicInteger> statistieken = new ConcurrentHashMap<>();
 
-    @After(be.vdab.aop.PointcutExpressions.services())
+    @After("be.vdab.aop.PointcutExpressions.services()")
     void statistiekBijwerken(JoinPoint joinPoint) {
         String joinPointSignatuur = joinPoint.getSignature().toLongString();
         AtomicInteger vorigGevondenAantal = statistieken.putIfAbsent(joinPointSignatuur, new AtomicInteger(1));
